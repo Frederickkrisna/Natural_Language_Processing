@@ -4,6 +4,14 @@ import nltk
 from nltk.probability import FreqDist
 from nltk.tokenize import word_tokenize, sent_tokenize
 
+def write_file(review, review_category):
+    file = open("reviews.txt", "a")
+    file.write(review_category + "#" + " ".join(review) + "\n")
+    file.close()
+    file - open("reviews_only.txt", "a")
+    file.write(" ".join(review) + "\n")
+    file.close()
+
 def add_review():
     select = 0
     review = ""
@@ -23,10 +31,6 @@ def add_review():
                 review_category = classifier.classify(FreqDist(review))
                 print("REVIEW CATEGORY: " + review_category)
                 file.close()
-            except FileNotFoundError:
-                print("ERROR: CLASSIFIER NOT FOUND.")
-                print("PLEASE TRAIN THE CLASSIFIER FIRST.")
-                a = input('').split(" ")[0]
             except Exception as e:
                 print("ERROR: " + e)
                 a = input('').split(" ")[0]
@@ -52,7 +56,9 @@ def main_menu():
             review_text = review[-1].split("#")[1]
             review_category = review[-1].split("#")[0]
         else:
-            review = ""
+            review_text = "NO REVIEW"
+            review_category = "UNKNOWN"
+            
         os.system("cls")
         print("SMARTPHONE BRAND RECOMMENDATION APPLICATION BASED ON REVIEW")
         print(f"YOUR REVIEW: {review_text}")
