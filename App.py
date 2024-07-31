@@ -8,9 +8,43 @@ def write_file(review, review_category):
     file = open("reviews.txt", "a")
     file.write(review_category + "#" + " ".join(review) + "\n")
     file.close()
-    file - open("reviews_only.txt", "a")
+    file = open("reviews_only.txt", "a")
     file.write(" ".join(review) + "\n")
     file.close()
+
+def check_sim(doc_index, cosine_sim, document):
+    sim_score = list(enumerate(cosine_sim[doc_index]))
+    sim_score = sorted(sim_score, key=lambda x: x[1], reverse=True)
+    recommendation = sim_score[1:4]
+    return recommendation
+
+def view_recommendation():
+    try:
+        file = open("recommendation_data.pickle", "rb")
+        tfidf, cosine_sim = pickle.load(file)
+    except Exception as e:
+        print("ERROR: " + e)
+    file = open("positive.txt", "r").read()
+    document = sent_tokenize(file)
+    recommendation = check_sim(0, cosine_sim, document)
+    counter = 0
+    for rec,score in recommendation:
+        counter += 1
+        print(f'{counter}. {document[rec]}')
+    a = input('').split(" ")[0]
+    
+def view_ner():
+    os.system("cls")
+    try:
+        with open('ner_data.pickle', 'rb') as file:
+            ner_data = pickle.load(file)
+        print("Data loaded successfully.")
+    except Exception as e:
+        print(f"Error loading pickle file: {e}")
+    
+    print("\nExtracted Named Entities:")
+    print("Smarphone_Brand: ", ner_data["smartphone_brand"])
+    a = input('').split(" ")[0]
 
 def add_review():
     select = 0
@@ -75,7 +109,7 @@ def main_menu():
             view_recommendation()
         elif select == 3:
             print("VIEW NAMED ENTITY RECOGNITION")
-            view_named_entity_recognition()
+            view_ner()
         elif select == 4:
             break
         else:
