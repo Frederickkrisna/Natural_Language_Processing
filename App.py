@@ -19,6 +19,8 @@ def check_sim(doc_index, cosine_sim, document):
     return recommendation
 
 def view_recommendation():
+    os.system("cls")
+    print("TOP 3 RECOMMENDATION FOR YOU:")
     try:
         file = open("recommendation_data.pickle", "rb")
         tfidf, cosine_sim = pickle.load(file)
@@ -31,6 +33,7 @@ def view_recommendation():
     for rec,score in recommendation:
         counter += 1
         print(f'{counter}. {document[rec]}')
+    print("\n[>] PRESS ENTER TO CONTINUE...")
     a = input('').split(" ")[0]
     
 def view_ner():
@@ -44,6 +47,7 @@ def view_ner():
     
     print("\nExtracted Named Entities:")
     print("Smarphone_Brand: ", ner_data["smartphone_brand"])
+    print("\n[>] PRESS ENTER TO CONTINUE...")
     a = input('').split(" ")[0]
 
 def add_review():
@@ -111,6 +115,7 @@ def main_menu():
             print("VIEW NAMED ENTITY RECOGNITION")
             view_ner()
         elif select == 4:
+            print("\nTHANK YOU!")
             break
         else:
             print("INVALID INPUT. PLEASE TRY AGAIN.")

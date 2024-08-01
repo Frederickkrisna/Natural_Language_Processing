@@ -160,3 +160,5 @@ positive#ASUS ROG Phone offers a great gaming experience.
 negative#ASUS ROG Phone is not suitable for everyday use.
 positive#Apple iPhone has a user-friendly interface.
 negative#samsung is bad.
+positive#iphone is great.
+positive#iphone display is amazing.
